@@ -16,4 +16,9 @@ class Video {
     public function videoRelate() {
 
     }
+
+    //小视频播放
+    public function microVideoPlay() {
+
+    }
 }

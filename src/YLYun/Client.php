@@ -29,7 +29,4 @@ class Client {
 
     //搜索模块
     public function search() { return new Search($this); }
-
-    //小视频模块
-    public function microvideo() { return new MicroVideo($this); }
 }
