@@ -1,4 +1,8 @@
 <?php
+/**
+ * 一览视频云 频道
+ */
+
 namespace YLYun;
 
 class Channel {
