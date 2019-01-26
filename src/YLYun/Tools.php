@@ -21,4 +21,6 @@ class Tools {
 	    $str = implode('&', $hash);
 	    return md5($str);
 	}
+
+
 }

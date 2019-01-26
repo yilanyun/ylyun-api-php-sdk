@@ -77,10 +77,10 @@ final class Http {
                 return self::sendRequest($client, $url, $method, $body, ++$times);
             } else {
                 if ($errorCode === 28) {
-                    throw new APIConnectionException($msg . "Response timeout. Your request has probably be received by YLYun Server,please check that whether need to be pushed again." );
+                    throw new APIConnectionException($msg . "Response timeout" );
                 } elseif ($errorCode === 56) {
                 // resolve error[56 Problem (2) in the Chunked-Encoded data]
-                    throw new APIConnectionException($msg . "Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.");
+                    throw new APIConnectionException($msg . "Response timeout, maybe cause by old CURL version.");
                 } else {
                     throw new APIConnectionException("$msg . Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
                 }
