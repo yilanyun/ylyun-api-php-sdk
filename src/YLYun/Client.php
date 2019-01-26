@@ -12,10 +12,14 @@ class Client {
 
 	private $_key;
 	private $_token;
+	private $_retryTimes;
+    private $_logFile;
 
-	public function __construct() {
+	public function __construct($logFile='', $retryTimes=0) {
 		$this->_key = Config::ACCESS_KEY;
 		$this->_token = Config::ACCESS_TOKEN;
+		$this->_logFile = $logFile ? $logFile : Config::DEFAULT_LOG_FILE;
+		$this->_retryTimes = $retryTimes ? $retryTimes : Config::DEFAULT_MAX_RETRY_TIMES;
 	}
 
 	//频道模块
@@ -29,4 +33,14 @@ class Client {
 
     //搜索模块
     public function search() { return new Search($this); }
+
+    //返回重试次数
+    public function getRetryTimes() {
+    	return $this->_retryTimes;
+    }
+
+    //返回日志文件
+    public function getLogFile() {
+    	return $this->_logFile;
+    }
 }
