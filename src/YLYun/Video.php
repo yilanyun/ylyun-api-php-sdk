@@ -4,6 +4,16 @@
  */
 
 namespace YLYun;
+
 class Video {
 
+	//视频详情
+    public function videoDetail() {
+
+    }
+
+	//视频相关
+    public function videoRelate() {
+
+    }
 }
