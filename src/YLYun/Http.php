@@ -64,13 +64,6 @@ final class Http {
         $response = array();
         $errorCode = curl_errno($ch);
 
-        // $msg = '';
-        // $data = json_decode($body, true);
-        // if (isset($data['options']['sendno'])) {
-        //     $sendno = $data['options']['sendno'];
-        //     $msg = 'sendno: ' . $sendno;
-        // }
-
         $msg = '';
         if (isset($body['options']['sendno'])) {
             $sendno = $body['options']['sendno'];

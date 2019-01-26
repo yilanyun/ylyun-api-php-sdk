@@ -1,6 +1,6 @@
 <?php
-namespace YLYun\Exceptions;
 
+namespace YLYun\Exceptions;
 class YLYunException extends \Exception {
 
     function __construct($message) {
