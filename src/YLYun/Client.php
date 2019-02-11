@@ -7,6 +7,7 @@
  */
 
 namespace YLYun;
+use InvalidArgumentException;
 
 class Client {
 
@@ -14,10 +15,26 @@ class Client {
 	private $_token;
 	private $_retryTimes;
     private $_logFile;
+    public  $common = []; //通用参数
+    const COMM_PARAMS = ['ip','ver','model','udid'];
 
-	public function __construct($logFile='', $retryTimes=0) {
+	public function __construct($common, $logFile='', $retryTimes=0) {
 		$this->_key = Config::ACCESS_KEY;
 		$this->_token = Config::ACCESS_TOKEN;
+        if (empty($this->_key) || empty($this->_token)) {
+            throw new InvalidArgumentException("Invalid access_key or access_token");
+        }
+        //检查必要参数
+        foreach (self::COMM_PARAMS as $key) {
+            if (!isset($common[$key])) {
+                throw new InvalidArgumentException("empty common param: {$key}");
+            }
+        }
+        $this->common = $common;
+        $this->common['access_key'] = $this->_key;
+        $this->common['format'] = Config::FORMAT;
+        $this->common['platform'] = Config::PLATFORM;
+        $this->common['timestamp'] = round(microtime(true), 3) * 1000;
 		$this->_logFile = $logFile ? $logFile : Config::DEFAULT_LOG_FILE;
 		$this->_retryTimes = $retryTimes ? $retryTimes : Config::DEFAULT_MAX_RETRY_TIMES;
 	}
@@ -42,5 +59,10 @@ class Client {
     //返回日志文件
     public function getLogFile() {
     	return $this->_logFile;
+    }
+
+    //获取公共参数
+    public function getCommParams() {
+        return $this->common;
     }
 }
