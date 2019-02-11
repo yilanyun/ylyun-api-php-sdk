@@ -42,7 +42,7 @@ class Recommend {
     	$input = array_combine(self::$urls['video']['keys'], func_get_args());
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['video'], $this->params);
-    	$res = HTTP::get($this->client, $url);
+    	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200' && $res['data']) {
     		return $res['data'];
     	} else {

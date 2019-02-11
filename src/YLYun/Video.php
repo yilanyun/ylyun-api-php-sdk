@@ -41,7 +41,7 @@ class Video {
     	$input = array_combine(self::$urls['detail']['keys'], func_get_args());
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['detail'], $this->params);
-    	$res = HTTP::get($this->client, $url);
+    	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200') {
     		unset($res['code']);
     		unset($res['msg']);
@@ -61,7 +61,7 @@ class Video {
     	$input = array_combine(self::$urls['relate']['keys'], func_get_args());
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['relate'], $this->params);
-    	$res = HTTP::get($this->client, $url);
+    	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200' && $res['data']) {
     		return $res['data'];
     	} else {
@@ -78,7 +78,7 @@ class Video {
     	$input = array_combine(self::$urls['play']['keys'], func_get_args());
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['play'], $this->params);
-    	$res = HTTP::get($this->client, $url);
+    	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200' && $res['bitrates']) {
     		return $res['bitrates'];
     	} else {

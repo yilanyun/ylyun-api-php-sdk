@@ -28,7 +28,7 @@ class Channel {
     public function getChannel() {
     	$this->params = $this->common;
     	$url = Tools::getFullUrl(self::$urls['channel'], $this->params);
-    	$res = HTTP::get($this->client, $url);
+    	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200' && $res['data']) {
     		return $res['data'];
     	} else {
