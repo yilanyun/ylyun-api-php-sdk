@@ -13,10 +13,7 @@ class Channel {
 	public $params;
 
 	public static $urls = [
-		'channel' => [
-			'uri' => '/video/getchannel',
-			'keys' => [],
-		],
+		'channel' => '/video/getchannel',
 	];
 
 	public function __construct($client) {

@@ -13,16 +13,8 @@ class Recommend {
 	public $params;
 
 	public static $urls = [
-		'video' => [
-			'uri' => '/video/feed',
-			'keys' => ['uid','load_type','channel_id','log_id'],
-		],
-		'video_ad' => [
-
-		],
-		'micro_video' => [
-
-		],
+		'feed' => '/video/feed',
+		'ugc_feed' => '/video/ugcfeed',
 	];
 
 	public function __construct($client) {
@@ -38,10 +30,15 @@ class Recommend {
 	 * @param  string] $log_id 接口请求唯一标识
 	 * @return array  推荐数据
 	 */
-    public function recommendVideo($uid, $load_type, $channel_id, $log_id) {
-    	$input = array_combine(self::$urls['video']['keys'], func_get_args());
+    public function recommendFeed($uid, $load_type, $channel_id, $log_id) {
+    	$input = [
+    		'uid' => $uid,
+    		'load_type' => $load_type,
+    		'channel_id' => $channel_id,
+    		'log_id' => $log_id,
+    	];
     	$this->params = array_merge($this->common, $input);
-    	$url = Tools::getFullUrl(self::$urls['video'], $this->params);
+    	$url = Tools::getFullUrl(self::$urls['feed'], $this->params);
     	$res = Http::get($this->client, $url);
     	if ($res['code'] == '200' && $res['data']) {
     		return $res['data'];
@@ -50,13 +47,24 @@ class Recommend {
     	}
     }
 
-	//携带广告的频道推荐
-    public function recommendWithAd() {
-
-    }
-
-    //小视频推荐列表
-    public function recommendMicroVideo() {
-
+    /**
+     * 小视频推荐列表
+	 * @param  int $load_type  0-上拉加载更多 1-非首次下拉刷新时 2-首次刷新某个频道
+	 * @param  string] $log_id 接口请求唯一标识
+	 * @return array  推荐数据
+     */
+    public function recommendUgcFeed($load_type, $log_id) {
+    	$input = [
+    		'load_type' => $load_type,
+    		'log_id' => $log_id,
+    	];
+    	$this->params = array_merge($this->common, $input);
+    	$url = Tools::getFullUrl(self::$urls['ugc_feed'], $this->params);
+    	$res = Http::get($this->client, $url);
+    	if ($res['code'] == '200' && $res['data']) {
+    		return $res['data'];
+    	} else {
+    		throw new YLYunException($res['msg'], $res['code']);
+    	}
     }
 }

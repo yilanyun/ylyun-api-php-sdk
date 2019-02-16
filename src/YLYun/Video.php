@@ -13,18 +13,9 @@ class Video {
 	public $params;
 
 	public static $urls = [
-		'detail' => [
-			'uri' => '/video/detail',
-			'keys' => ['id'],
-		],
-		'relate' => [
-			'uri' => '/video/relation',
-			'keys' => ['id'],
-		],
-		'play' => [
-			'uri' => '/video/play',
-			'keys' => ['id'],
-		],
+		'detail' => '/video/detail',
+		'relate' => '/video/relation',
+		'play' => '/video/play',
 	];
 
 	public function __construct($client) {
@@ -38,7 +29,7 @@ class Video {
 	 * @return array
 	 */
     public function videoDetail($vid) {
-    	$input = array_combine(self::$urls['detail']['keys'], func_get_args());
+    	$input['id'] = $vid;
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['detail'], $this->params);
     	$res = Http::get($this->client, $url);
@@ -58,7 +49,7 @@ class Video {
 	 * @return array
 	 */
     public function videoRelate($vid) {
-    	$input = array_combine(self::$urls['relate']['keys'], func_get_args());
+    	$input['id'] = $vid;
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['relate'], $this->params);
     	$res = Http::get($this->client, $url);
@@ -70,12 +61,12 @@ class Video {
     }
 
     /**
-     * 小视频播放
+     * 视频播放
      * @param string $vid 视频ID
 	 * @return array
      */
-    public function microVideoPlay($vid) {
-    	$input = array_combine(self::$urls['play']['keys'], func_get_args());
+    public function videoPlay($vid) {
+    	$input['id'] = $vid;
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['play'], $this->params);
     	$res = Http::get($this->client, $url);
