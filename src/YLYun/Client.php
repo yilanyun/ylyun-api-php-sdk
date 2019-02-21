@@ -29,8 +29,8 @@ class Client {
             if (!isset($common[$key])) {
                 throw new InvalidArgumentException("empty common param: {$key}");
             }
+            $this->common[$key] = $common[$key];
         }
-        $this->common = $common;
         $this->common['access_key'] = $this->_key;
         $this->common['format'] = Config::FORMAT;
         $this->common['platform'] = Config::PLATFORM;

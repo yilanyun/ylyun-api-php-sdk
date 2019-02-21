@@ -35,14 +35,13 @@ class TestSdk {
 		$uid = 1024024;
 		$type = 0;
 		$channel_id = 1351;
-		$log_id = uniqid();
 
 		echo "\n ###获取短视频推荐数据### \n";
-		$data = $this->client->recommend()->recommendFeed($uid, $type, $channel_id, $log_id);
+		$data = $this->client->recommend()->recommendFeed($type, $channel_id, $uid);
 		var_export($data);
 
 		echo "\n ###获取小视频推荐数据### \n";
-		$data = $this->client->recommend()->recommendUgcFeed($type, $log_id);
+		$data = $this->client->recommend()->recommendUgcFeed($type, $uid);
 		var_export($data);
 	}
 

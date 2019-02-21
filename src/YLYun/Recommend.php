@@ -24,18 +24,16 @@ class Recommend {
 
 	/**
 	 * 频道推荐列表
-	 * @param  string $uid  用户唯一标识
 	 * @param  int $load_type  0-上拉加载更多 1-非首次下拉刷新时 2-首次刷新某个频道
-	 * @param  string] $channel_id 频道id
-	 * @param  string] $log_id 接口请求唯一标识
+	 * @param  string $channel_id 频道id
+     * @param  string $uid  用户唯一标识
 	 * @return array  推荐数据
 	 */
-    public function recommendFeed($uid, $load_type, $channel_id, $log_id) {
+    public function recommendFeed($load_type, $channel_id, $uid=0) {
     	$input = [
-    		'uid' => $uid,
     		'load_type' => $load_type,
     		'channel_id' => $channel_id,
-    		'log_id' => $log_id,
+    		'uid' => $uid,
     	];
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['feed'], $this->params);
@@ -50,13 +48,13 @@ class Recommend {
     /**
      * 小视频推荐列表
 	 * @param  int $load_type  0-上拉加载更多 1-非首次下拉刷新时 2-首次刷新某个频道
-	 * @param  string] $log_id 接口请求唯一标识
+	 * @param  string $uid  用户唯一标识
 	 * @return array  推荐数据
      */
-    public function recommendUgcFeed($load_type, $log_id) {
+    public function recommendUgcFeed($load_type, $uid=0) {
     	$input = [
     		'load_type' => $load_type,
-    		'log_id' => $log_id,
+    		'uid' => $uid,
     	];
     	$this->params = array_merge($this->common, $input);
     	$url = Tools::getFullUrl(self::$urls['ugc_feed'], $this->params);
