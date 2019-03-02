@@ -1,14 +1,14 @@
 {
     "name": "ylyun/ylyun",
     "type": "library",
-    "description": "JPush API PHP Client",
-    "homepage": "https://github.com/jpush/jpush-api-php-client",
+    "description": "YLYun API PHP Client",
+    "homepage": "https://github.com/yilanyun/ylyun-api-php-client",
     "license": "MIT",
     "authors": [
         {
-            "name": "JPush",
-            "email": "support@jpush.cn",
-            "homepage": "https://www.jpush.cn/",
+            "name": "YLYun",
+            "email": "github@yilan.tv",
+            "homepage": "https://www.yilan.tv/",
             "role": "Developer"
         }
     ],
@@ -16,16 +16,7 @@
         "php": ">=5.3.3",
         "ext-curl": "*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "*"
-    },
     "autoload" : {
-        "psr-4": {"JPush\\": "src/JPush/"}
+        "psr-4": {"YLYun\\": "src/YLYun/"}
     },
-    "autoload-dev": {
-        "psr-4": { "JPush\\Tests\\": "tests/" }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    }
 }
