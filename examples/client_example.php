@@ -6,7 +6,8 @@
  */
 
 require __DIR__ . '/../autoload.php';
-use YLYun\Client as Client;
+use YLYun\Client;
+use YLYun\Params\FeedWithAdParam;
 
 class TestSdk {
 
@@ -42,6 +43,21 @@ class TestSdk {
 
 		echo "\n ###获取小视频推荐数据### \n";
 		$data = $this->client->recommend()->recommendUgcFeed($type, $uid);
+		var_export($data);
+
+        echo "\n ###获取个性化推荐视频(携带广告)数据### \n";
+        $adFeedParam = new FeedWithAdParam();
+        $adFeedParam->format([
+            'channel_id' => '1351',
+            'adid' => 'TEST_YILAN',
+            'os' => 1,
+            'os_ver' => '12.1',
+            'pkg_name' => '',
+            'network' => 1,
+            'ua' => 'test',
+            'carrier' => 70120
+        ]);
+        $data = $this->client->recommend()->feedWithAd($adFeedParam);
 		var_export($data);
 	}
 
