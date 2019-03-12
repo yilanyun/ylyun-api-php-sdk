@@ -47,6 +47,7 @@ class TestSdk {
 
         echo "\n ###获取个性化推荐视频(携带广告)数据### \n";
         $adFeedParam = new FeedWithAdParam();
+        //
         $adFeedParam->format([
             'channel_id' => '1351',
             'adid' => 'TEST_YILAN',

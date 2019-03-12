@@ -12,6 +12,7 @@ class Recommend {
 	private $client;
 	public $common;
 	public $params;
+    private $feed_ad_param_rule = ['channel_id'];
 
 	public static $urls = [
 		'feed' => '/video/feed',
@@ -77,6 +78,7 @@ class Recommend {
      * @throws YLYunException
      */
     public function feedWithAd(FeedWithAdParam $adFeedParam) {
+        $this->checkFeedWithAdParam($adFeedParam);
         $this->params = array_merge($this->common, $adFeedParam->toArray());
         $url = Tools::getFullUrl(self::$urls['feed_with_ad'], $this->params);
         $res = Http::get($this->client, $url);
@@ -85,5 +87,22 @@ class Recommend {
         } else {
             throw new YLYunException($res['msg'], $res['code']);
         }
+    }
+
+    /**
+     * @param FeedWithAdParam $adFeedParam
+     * @return bool
+     * @throws YLYunException
+     */
+    private function checkFeedWithAdParam(FeedWithAdParam $adFeedParam)
+    {
+        if ($this->feed_ad_param_rule) {
+            foreach ($this->feed_ad_param_rule as $param) {
+                if (empty($adFeedParam->$param)) {
+                    throw new YLYunException('对象FeedWithAdParam参数\''.$param.'\'不可为空');
+                }
+            }
+        }
+        return true;
     }
 }
