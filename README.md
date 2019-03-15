@@ -170,15 +170,11 @@ $ php examples/client_example.php video
 
 
 
-## License
-
-The library is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-
 ### 所有异常
 
 * YLYun\Exceptions\APIConnectionException ，表示http请求的相关异常。
 * YLYun\Exceptions\YLYunException ，其他异常。
 
-## LICENSE
+## License
+
 MIT
