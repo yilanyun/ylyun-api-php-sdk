@@ -76,6 +76,17 @@ use YLYun\Client as Client;
 
 ...
 ```
+#### 参数说明
+
+| 参数名称 | 类型 | 默认值 | 是否必传 | 解释 |
+| --- | --- | --- | --- | --- |
+| accessKey | string | 无 | 是 | 分配给第三方平台的应用ID |
+| accessToken | string | 无 | 是 | 长度为32个字符的ASCII字符串 |
+| platform | string | 无 | 是 | 平台标识 如  [Android，iPhone] |
+| udid | string | 无 | 是 | 设备唯一标识 |
+| ver | string | 无 | 是 | 客户端版本 |
+| model | string | 无 | 是 | 客户端设备型号  如 Nexus 4 |
+| ip | string | 无 | 是 | 客户端ip地址 |
 
 #### 渠道相关服务
 
@@ -104,12 +115,33 @@ $adFeedParam->format([
 ]);
 $data = $this->client->recommend()->feedWithAd($adFeedParam);
 ```
+#### 参数说明
+
+| 参数名称 | 类型 | 默认值 | 是否必传 | 解释 |
+| --- | --- | --- | --- | --- |
+| uid | long | 无 | 是 | 用户唯一标识 |
+| type | int | 无 | 是 | 加载方式 0-上拉加载更多 1-非首次下拉刷新时 2-首次刷新某个频道 |
+| channel_id | int | 无 | 是 | 频道 ID，由频道列表接口获得该值 |
+| adid | string | 空 | 是 | Android ID，字母大写 |
+| os | int | 0 | 是 | 操作系统类型，1-iOS,2- Android,0-其他 |
+| os_ver | string | 空 | 是 | 操作系统版本，点分十进制 |
+| pkg_name | string | 空 | 是 | 应用包名 |
+| network | int | 0 | 是 | 网络环境，1-WIFI,2-5G 以上,3- 2G,4-3G,5-4G,0-未知 |
+| ua | string | 空 | 是 | 客户端 User Agent |
+| carrier | int | 0 | 是 | 运营商 70120-移动,70121-电 信,70123-联通,0-其他 |
+
+
 
 #### 搜索相关服务
 
 ```php
 $this->client->search()->searchVideo($keyword);
 ```
+#### 参数说明
+
+| 参数名称 | 类型 | 默认值 | 是否必传 | 解释 |
+| --- | --- | --- | --- | --- |
+| keyword | string | 无 | 是 | 搜索关键字 |
 
 #### 视频相关服务
 
@@ -124,30 +156,11 @@ $relate = $this->client->video()->videoRelate($vid);
 //获取视频播放数据
 $play = $this->client->video()->videoPlay($vid);
 ```
-
-#### 入参说明
+#### 参数说明
 
 | 参数名称 | 类型 | 默认值 | 是否必传 | 解释 |
-| :---: | :---: | :---: | :---: | :---: |
-| platform | string | 无 | 是 | 平台标识 如 [Android | iPhone]   |
-| udid | string | 无 | 是 | 设备唯一标识 |
-| ip | string | 无 | 否 | 客户端真实ip地址 |
-| ver | string | 无 | 否 | 客户端版本 |
-| uid | string | 无 | 否 | 用户账号 |
-| model | string | 无 | 否 | 客户端设备型号  如 Nexus 4 |
-| brand | string | 无 | 否 | 设备厂商 如:小米(xiaomi)、华为(hauwei)、魅族(meizu) |
-| auth_key | string | 无 | 否 | CDN签名 （非客户端SDK,忽略该字段） |
-|  |  |  |  |  |
-| channel_id | int | 无 | 是 | 频道 ID，由频道列表接口获得该值 |
-| adid | string | 空 | 是 | Android ID，字母大写 |
-| os | int | 0 | 是 | 操作系统类型，1-iOS,2- Android,0-其他 |
-| os_ver | string | 空 | 是 | 操作系统版本，点分十进制 |
-| pkg_name | string | 空 | 是 | 应用包名 |
-| network | int | 0 | 是 | 网络环境，1-WIFI,2-5G 以上,3- 2G,4-3G,5-4G,0-未知 |
-| ua | string | 空 | 是 | 客户端 User Agent |
-| carrier | int | 0 | 是 | 运营商 70120-移动,70121-电 信,70123-联通,0-其他 |
-
-
+| --- | --- | --- | --- | --- |
+| vid | string | 无 | 是 | 视频唯一标识ID |
 
 
 ## Examples
