@@ -5,8 +5,8 @@ namespace YLYun;
 class Config
 {
     //以下常量上线前需要修改 请咨询一览接口人索取
-    const ACCESS_KEY = 'ylel2vek386q';
-    const ACCESS_TOKEN = 'talb5el4cbw3e8ad3jofbknkexi1z8r4';
+    const ACCESS_KEY = '';
+    const ACCESS_TOKEN = '';
     const ENV = 'dev';  //环境 dev/prod
 
     //以下常量不需要修改
