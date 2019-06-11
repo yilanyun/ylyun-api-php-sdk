@@ -4,32 +4,40 @@
  */
 
 namespace YLYun;
+
 use YLYun\Exceptions\YLYunException;
 
-class Channel {
+class Channel
+{
 
-	private $client;
-	public $common;
-	public $params;
+    /**
+     * @var \YLYun\Client
+     */
+    private $client;
+    public $common;
+    public $params;
+    public $urls = [
+        'channel' => '/openv2/video/getchannel',
+    ];
 
-	public static $urls = [
-		'channel' => '/video/getchannel',
-	];
+    public function __construct($client)
+    {
+        $this->client = $client;
+        $this->common = $this->client->getCommParams();
+    }
 
-	public function __construct($client) {
-		$this->client = $client;
-		$this->common = $this->client->getCommParams();
-	}
-
-	//获取频道
-    public function getChannel() {
-    	$this->params = $this->common;
-    	$url = Tools::getFullUrl(self::$urls['channel'], $this->params);
-    	$res = Http::get($this->client, $url);
-    	if ($res['code'] == '200' && $res['data']) {
-    		return $res['data'];
-    	} else {
-    		throw new YLYunException($res['msg'], $res['code']);
-    	}
+    /**
+     * @return mixed
+     * @throws YLYunException
+     */
+    public function getChannel()
+    {
+        $this->params = $this->common;
+        $res = Tools::api($this->urls['channel'], $this->client, $this->params);
+        if ($res['retcode'] == '200' && $res['data']) {
+            return $res['data'];
+        } else {
+            throw new YLYunException($res['retmsg'], $res['retcode']);
+        }
     }
 }

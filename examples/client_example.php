@@ -6,102 +6,104 @@
  */
 
 require __DIR__ . '/../autoload.php';
+
 use YLYun\Client;
-use YLYun\Params\FeedWithAdParam;
 
-class TestSdk {
+class TestSdk
+{
+    private $common_params;
+    private $client;
 
-	private $client;
+    public function __construct()
+    {
+        //共用参数
+        $this->common_params = [
+            'udid'     => '5459daf640bdb6a6a7e294a5f3f5f0d1', // 设备唯一标识，客户端生成
+            'sver'     => '2019-05-01', // 服务端版本
+            'prid'     => '19',  // 区分请求接口来源（api 默认填 19）
+            'ip'       => '1.202.240.202',  // 客户端ip地址
+            'ver'      => '1.5.3.224', // 客户端版本
+            'mac'      => '', // 设备mac地址，限于Android
+            'imei'     => '', // 设备imei，限于Android
+            'imeimd5'  => '', // 设备imei脱敏信息，imei采用md5方式处理
+            'idfa'     => '', // 设备idfa，限于iOS
+            'model'    => '', // 设备型号
+            'brand'    => '', // 设备厂商
+            'adid'     => '', // Android ID，字母大写
+            'nt'       => '', // 客户端网络环境
+            'telecom'  => '', // 客户端运营商
+            'os_ver'   => '', // 客户端操作系统版本
+            'pkg_name' => '', // 应用包名
+        ];
+        $this->client = new Client($this->common_params);
+    }
 
-	public function __construct() {
-		//测试共用参数
-		$comm = [
-			'udid' => '5459daf640bdb6a6a7e294a5f3f5f0d1',
-			'ver' => '1.5.3.224',
-			'model' => 'COL-AL10',
-			'ip' => '1.202.240.202',
-		];
-		$this->client = new Client($comm);
-	}
+    //测试渠道服务
+    public function testChannel()
+    {
+        echo "\n ###获取频道数据### \n";
+        $chan = $this->client->channel()->getChannel();
+        var_export($chan);
+    }
 
-	//测试渠道服务
-	public function testChannel() {
-		echo "\n ###获取频道数据### \n";
-		$chan = $this->client->channel()->getChannel();
-		var_export($chan);
-	}
+    //测试推荐服务
+    public function testRecommend()
+    {
+        $load_type  = 0;
+        $channel_id = 1291;
 
-	//测试推荐服务
-	public function testRecommend() {
-		$uid = 1024024;
-		$type = 0;
-		$channel_id = 1351;
+        echo "\n ###获取短视频推荐数据### \n";
+        $data = $this->client->recommend()->feed($load_type, $channel_id);
+        var_export($data);
 
-		echo "\n ###获取短视频推荐数据### \n";
-		$data = $this->client->recommend()->recommendFeed($type, $channel_id, $uid);
-		var_export($data);
+        echo "\n ###获取小视频推荐数据### \n";
+        $data = $this->client->recommend()->ugcFeed($load_type);
+        var_export($data);
+    }
 
-		echo "\n ###获取小视频推荐数据### \n";
-		$data = $this->client->recommend()->recommendUgcFeed($type, $uid);
-		var_export($data);
+    //测试视频服务
+    public function testVideo()
+    {
+        $vid = 'lm5lG1kXxjp2';
 
-        echo "\n ###获取个性化推荐视频(携带广告)数据### \n";
-        $adFeedParam = new FeedWithAdParam();
-        //
-        $adFeedParam->format([
-            'channel_id' => '1351',
-            'adid' => 'TEST_YILAN',
-            'os' => 1,
-            'os_ver' => '12.1',
-            'pkg_name' => '',
-            'network' => 1,
-            'ua' => 'test',
-            'carrier' => 70120
-        ]);
-        $data = $this->client->recommend()->feedWithAd($adFeedParam);
-		var_export($data);
-	}
+        echo "\n ###获取视频详情数据### \n";
+        $detail = $this->client->video()->detail($vid);
+        var_export($detail);
 
-	//测试搜索服务
-	public function testSearch() {
-		$keyword = "好兔视频";
+        echo "\n ###获取视频播放地址### \n";
+        $detail = $this->client->video()->play($vid);
+        var_export($detail);
 
-		echo "###短视频搜索### \n";
-		$data = $this->client->search()->searchVideo($keyword);
-		var_export($data);
-	}
+        echo "\n ###获取视频相关数据### \n";
+        $relate = $this->client->video()->relation($vid);
+        var_export($relate);
 
-	//测试视频服务
-	public function testVideo() {
-		$vid = 'lm5lG1kXxjp2';
+        echo "\n ###获取短视频详情推荐数据### \n";
+        $data = $this->client->video()->detailFeed($vid);
+        var_export($data);
 
-		echo "\n ###获取视频详情数据### \n";
-		$detail = $this->client->video()->videoDetail($vid);
-		var_export($detail);
+//
+    }
 
-		echo "\n ###获取视频相关数据### \n";
-		$relate = $this->client->video()->videoRelate($vid);
-		var_export($relate);
-	}
-
-	public function run($mod) {
-		$method = "test{$mod}";
-		$this->{$method}();
-	}
+    public function run($mod)
+    {
+        $method = "test{$mod}";
+        $this->{$method}();
+    }
 }
 
 //开始测试
 if ($argv[1]) {
-	$modArr = ['channel','recommend','search', 'video'];
-	$mod = $argv[1];
-	if (in_array($mod, $modArr)) {
-		$obj = new TestSdk();
-		$obj->run($mod);
-	} else {
-		echo "input module error, must in [channel,recommend, search, video]\n";
-	}
+    $modArr = ['channel', 'recommend', 'video'];
+    $mod    = $argv[1];
+    if (in_array($mod, $modArr)) {
+        $obj = new TestSdk();
+        $obj->run($mod);
+    } else {
+        echo "input module error, must in [channel,recommend, search, video]\n";
+    }
 } else {
-	echo "pls input test module [channel,recommend, search, video]\n";
+    echo "pls input test module [channel,recommend, search, video]\n";
 }
 echo "\ntest done!\n";
 
