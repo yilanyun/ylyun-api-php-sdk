@@ -127,16 +127,12 @@ $data = $this->client->recommend()->ugcFeed($load_type);
 
 ```
 
-#### 搜索相关服务
-
-```php
-$this->client->search()->searchVideo($keyword);
-```
 #### 参数说明
-
 | 参数名称 | 类型 | 默认值 | 是否必传 | 解释 |
 | --- | --- | --- | --- | --- |
-| keyword | string | 无 | 是 | 搜索关键字 |
+| load_type | int | 0 | 是 | 0上拉加载更多 1非首次下拉刷新时 2首次刷新某个频道 |
+| channel_id | string | 空 | 是 | 频道id |
+
 
 #### 视频相关服务
 
