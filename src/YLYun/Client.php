@@ -18,7 +18,7 @@ class Client
     private $_logFile;
     public $timestamp;
     public $common = []; //通用参数
-    const COMM_PARAMS = [
+    protected $needParams = [
         'udid',        // 设备唯一标识，客户端生成
         'sver',        // 服务端版本
         'prid',        // 区分请求接口来源（api 默认填 19）
@@ -47,7 +47,7 @@ class Client
             throw new InvalidArgumentException("Invalid access_key or access_token");
         }
         //检查必要参数
-        foreach (self::COMM_PARAMS as $key) {
+        foreach ($this->needParams as $key) {
             if (!isset($common[$key])) {
                 throw new InvalidArgumentException("empty common param: {$key}");
             }

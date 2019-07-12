@@ -27,6 +27,13 @@ class Tools
         return $sign;
     }
 
+    /**
+     * @param $uri
+     * @param $client
+     * @param $params
+     * @return mixed
+     * @throws Exceptions\APIConnectionException
+     */
     public static function api($uri, $client, $params)
     {
         $url    = static::getUrl($uri);
@@ -52,7 +59,7 @@ class Tools
     }
 
     /**
-     * @param $client \YLYun\Client
+     * @param $client Client
      * @return array
      */
     public static function getHeader($client)
@@ -65,7 +72,7 @@ class Tools
 
     /**
      * 获取请求body
-     * @param $client \YLYun\Client
+     * @param $client Client
      * @param $params
      * @return array
      */
@@ -83,7 +90,7 @@ class Tools
 
     /**
      * 获取签名
-     * @param $client \YLYun\Client
+     * @param $client Client
      * @param $text
      * @return string
      */

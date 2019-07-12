@@ -11,7 +11,7 @@ class Channel
 {
 
     /**
-     * @var \YLYun\Client
+     * @var Client
      */
     private $client;
     public $common;

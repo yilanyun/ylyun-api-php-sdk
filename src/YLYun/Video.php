@@ -20,6 +20,10 @@ class Video
         'relation'   => '/openv2/video/relation',
     ];
 
+    /**
+     * Video constructor.
+     * @param Client $client
+     */
     public function __construct($client)
     {
         $this->client = $client;

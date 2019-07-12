@@ -2,7 +2,7 @@
 /**
  * 服务测试模块
  * 用法：php client_example.php $mod_name
- * mod_name 值阈[channel, recommend, search, video]
+ * mod_name 值阈[channel, recommend, video]
  */
 
 require __DIR__ . '/../autoload.php';
@@ -20,7 +20,7 @@ class TestSdk
         $this->common_params = [
             'udid'     => '5459daf640bdb6a6a7e294a5f3f5f0d1', // 设备唯一标识，客户端生成
             'sver'     => '2019-05-01', // 服务端版本
-            'prid'     => '19',  // 区分请求接口来源（api 默认填 19）
+            'prid'     => '9',  // 区分请求接口来源（api 默认填 9）
             'ip'       => '1.202.240.202',  // 客户端ip地址
             'ver'      => '1.5.3.224', // 客户端版本
             'mac'      => '', // 设备mac地址，限于Android
@@ -38,7 +38,10 @@ class TestSdk
         $this->client = new Client($this->common_params);
     }
 
-    //测试渠道服务
+    /**
+     * 测试渠道服务
+     * @throws YLYun\Exceptions\YLYunException
+     */
     public function testChannel()
     {
         echo "\n ###获取频道数据### \n";
@@ -46,7 +49,10 @@ class TestSdk
         var_export($chan);
     }
 
-    //测试推荐服务
+    /**
+     * 测试推荐服务
+     * @throws YLYun\Exceptions\YLYunException
+     */
     public function testRecommend()
     {
         $load_type  = 0;
@@ -61,7 +67,10 @@ class TestSdk
         var_export($data);
     }
 
-    //测试视频服务
+    /**
+     * 测试视频服务
+     * @throws YLYun\Exceptions\YLYunException
+     */
     public function testVideo()
     {
         $vid = 'lm5lG1kXxjp2';
@@ -82,7 +91,6 @@ class TestSdk
         $data = $this->client->video()->detailFeed($vid);
         var_export($data);
 
-//
     }
 
     public function run($mod)
@@ -92,7 +100,7 @@ class TestSdk
     }
 }
 
-//开始测试
+// 开始测试
 if ($argv[1]) {
     $modArr = ['channel', 'recommend', 'video'];
     $mod    = $argv[1];
@@ -106,5 +114,3 @@ if ($argv[1]) {
     echo "pls input test module [channel,recommend, search, video]\n";
 }
 echo "\ntest done!\n";
-
-?>

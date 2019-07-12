@@ -6,19 +6,43 @@ use YLYun\Exceptions\APIConnectionException;
 
 final class Http
 {
-
+    /**
+     * @param $client
+     * @param $url
+     * @return mixed
+     * @throws APIConnectionException
+     */
     public static function get($client, $url)
     {
         $response = self::sendRequest($client, $url, Config::HTTP_GET, $body = null);
         return $response;
     }
 
+    /**
+     * @param $client
+     * @param $url
+     * @param $body
+     * @param array $header
+     * @return mixed
+     * @throws APIConnectionException
+     */
     public static function post($client, $url, $body, $header = [])
     {
         $response = self::sendRequest($client, $url, Config::HTTP_POST, $body, $header);
         return $response;
     }
 
+    /**
+     * sendRequest
+     * @param Client $client
+     * @param $url
+     * @param $method
+     * @param null $body
+     * @param array $header
+     * @param int $times
+     * @return mixed
+     * @throws APIConnectionException
+     */
     private static function sendRequest($client, $url, $method, $body = null, $header = [], $times = 1)
     {
         self::log($client, "Send " . $method . " " . $url . ", body:" . json_encode($body) . ", times:" . $times);
@@ -69,6 +93,10 @@ final class Http
         return $res;
     }
 
+    /**
+     * @param Client $client
+     * @param $content
+     */
     public static function log($client, $content)
     {
         if (!is_null($client->getLogFile())) {
