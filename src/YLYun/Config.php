@@ -7,7 +7,7 @@ class Config
     //以下常量上线前需要修改 请咨询一览接口人索取
     const ACCESS_KEY = '';
     const ACCESS_TOKEN = '';
-    const ENV = 'dev';  //环境 dev/prod
+    const ENV = 'prod';  //环境 dev/prod
 
     //以下常量不需要修改
     const HOST_PROD = 'https://videoapis.yladm.com'; //线上正式域名
