@@ -10,7 +10,7 @@ class Config
     const ENV = 'dev';  //环境 dev/prod
 
     //以下常量不需要修改
-    const HOST_PROD = 'https://videoapiv2.yladm.com'; //线上正式域名
+    const HOST_PROD = 'https://videoapis.yladm.com'; //线上正式域名
     const HOST_DEV = 'http://testapi.yladm.com';
     const USER_AGENT = 'YLYun-PHP-Client';
     const CONNECT_TIMEOUT = 5;
